@@ -12,20 +12,20 @@ contract MyNFT is ERC721URIStorage, EIP712, AccessControl {
  string private constant SIGNING_DOMAIN = "MyNFT-Voucher";
  string private constant SIGNATURE_VERSION = "1";
 
- address private signer;
+ address private initiater;
 
  constructor()
   ERC721("LazyMINT", "LAZY")
   EIP712(SIGNING_DOMAIN, SIGNATURE_VERSION)
  {}
 
- function setMinter(address _signer) internal {
-  signer = _signer;
-  _setupRole(MINTER_ROLE, signer);
+ function setMinter(address _initiater) internal {
+  initiater = _initiater;
+  _setupRole(MINTER_ROLE, initiater);
  }
 
  function getMinter() public view returns (address) {
-  return signer;
+  return initiater;
  }
 
  /// @notice Redeems an NFTVoucher for an actual NFT, creating it in the process.
@@ -37,31 +37,31 @@ contract MyNFT is ERC721URIStorage, EIP712, AccessControl {
   string memory uri,
   bytes memory signature
  ) public payable  {
-  // make sure signature is valid and get the address of the signer
-  signer = _verify(tokenId, minPrice, uri, signature);
+  // make sure signature is valid and get the address of the initiater
+  initiater = _verify(tokenId, minPrice, uri, signature);
 
   // set the minter address in _setupRole
-  setMinter(signer);
+  setMinter(initiater);
 
-  // make sure that the signer is authorized to mint NFTs
-  require(hasRole(MINTER_ROLE, signer), "Signature invalid or unauthorized");
+  // make sure that the initiater is authorized to mint NFTs
+  require(hasRole(MINTER_ROLE, initiater), "Signature invalid or unauthorized");
 
   // make sure that the redeemer is paying enough to cover the buyer's cost
   require(msg.value >= minPrice, "Insufficient funds to redeem");
 
-  // first assign the token to the signer, to establish provenance on-chain
-  _mint(signer, tokenId);
+  // first assign the token to the initiater, to establish provenance on-chain
+  _mint(initiater, tokenId);
   _setTokenURI(tokenId, uri);
 
-  _transfer(signer, redeemer, tokenId);
+  _transfer(initiater, redeemer, tokenId);
 
-  // send amount to the signer
-  (bool sent, ) = payable(signer).call{value: msg.value}("");
+  // send amount to the initiater
+  (bool sent, ) = payable(initiater).call{value: msg.value}("");
   require(sent, "Failed to send Ether");
  }
 
- /// @notice Verifies the signature for a given voucher data, returning the address of the signer.
- /// @dev Will revert if the signature is invalid. Does not verify that the signer is authorized to mint NFTs.
+ /// @notice Verifies the signature for a given voucher data, returning the address of the initiater.
+ /// @dev Will revert if the signature is invalid. Does not verify that the initiater is authorized to mint NFTs.
  function _verify(
   uint256 tokenId,
   uint256 minPrice,
