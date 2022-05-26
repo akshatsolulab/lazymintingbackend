@@ -10,9 +10,7 @@ async function deploy() {
  const contract = await factory.deploy();
 
  return {
-  minter,
-  redeemer,
-  contract,
+  minter,redeemer,contract,
  };
 }
 
