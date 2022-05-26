@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const hardhat = require("hardhat");
 const { ethers } = hardhat;
-const { LazyMinter } = require("../lib/Minter");
+const { LazyMinter } = require("../lib/initiater");
 
 async function deploy() {
  const [minter, redeemer, _] = await ethers.getSigners();
