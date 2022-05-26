@@ -19,6 +19,7 @@ const nftSchema = new mongoose.Schema({
   type: String,
   required: true,
  },
+
  //1) mongoose.model, 2 minter.js
 });
 

@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const hardhat = require("hardhat");
 const { ethers } = hardhat;
-const { LazyMinter } = require("../lib/Minter");
+const { LazyMinter } = require("../lib/initiater");
 
 async function deploy() {
  const [minter, redeemer, _] = await ethers.getSigners();
@@ -17,9 +17,9 @@ async function deploy() {
 }
 
 describe("MyNFT", function () {
- it("Should deploy", async function () {
-  const signers = await ethers.getSigners();
-  const minter = signers.address;
+ it("The Token Contract should deploy", async function () {
+  const initiaters = await ethers.getSigners();
+  const minter = initiaters.address;
 
   const lazyNFT = await ethers.getContractFactory("MyNFT");
   const lazyFT = await lazyNFT.deploy();
@@ -29,7 +29,7 @@ describe("MyNFT", function () {
  it("Should redeem an NFT from a signed voucher", async function () {
   const { contract, redeemer, minter } = await deploy();
 
-  const lazyMinter = new LazyMinter({ contract, signer: minter });
+  const lazyMinter = new LazyMinter({ contract, initiater: minter });
   // console.log(lazyMinter);
   const voucher = await lazyMinter.createVoucher(
    1,
@@ -57,7 +57,7 @@ describe("MyNFT", function () {
  it("Should fail to redeem an NFT that's already been claimed", async function () {
   const { contract, redeemer, minter } = await deploy();
 
-  const lazyMinter = new LazyMinter({ contract, signer: minter });
+  const lazyMinter = new LazyMinter({ contract, initiater: minter });
   const voucher = await lazyMinter.createVoucher(
    1,
    "https://picsum.photos/seed/picsum/200/300"
@@ -85,10 +85,10 @@ describe("MyNFT", function () {
   ).to.be.revertedWith("ERC721: token already minted");
  });
 
- it("Should redeem if payment is >= minPrice", async function () {
+ it("it should make the nft transfer if the payment is greater or equal to minimum price", async function () {
   const { contract, redeemer, minter } = await deploy();
 
-  const lazyMinter = new LazyMinter({ contract, signer: minter });
+  const lazyMinter = new LazyMinter({ contract, initiater: minter });
   const amount = ethers.constants.WeiPerEther; // charge 1 Eth
   const voucher = await lazyMinter.createVoucher(
    1,
@@ -116,11 +116,11 @@ describe("MyNFT", function () {
    .withArgs(minter.address, redeemer.address, tokenId);
  });
 
- it("Should fail to redeem if payment is < minPrice", async function () {
+ it("should not reciever if the payment is less than min price", async function () {
   const { contract, redeemer, minter } = await deploy();
 
-  const lazyMinter = new LazyMinter({ contract, signer: minter });
-  const amount = 20000; // charge 1 Eth
+  const lazyMinter = new LazyMinter({ contract, initiater: minter });
+  const amount = 100; // charge 1 Eth
   const voucher = await lazyMinter.createVoucher(
    1,
    "https://picsum.photos/seed/picsum/200/300",
