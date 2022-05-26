@@ -1,4 +1,4 @@
-##NFT LAZY MINTING
+NFT LAZY MINTING
 
 This Project is regarding lazy minting implementation on NFT's and it manages the data from the backend and also stores all the data into the mongo db.
 
