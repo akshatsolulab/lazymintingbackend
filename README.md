@@ -51,6 +51,9 @@ npx hardhat verify --network <network> <DEPLOYED_CONTRACT_ADDRESS> "Constructor 
 
 ### Transaction Hashes
 Contract is deployed on 0xc12dc9161bC03A67BF7cB6f52D928EfA2daDfb08
+ 
+ NFT Purchase after being minted transaction 0xaaadec6be5803060aea62cf9a76d05f7cdf529d6b0fa029bd9fb47278109c39c
+ 
 
 ### Added plugins
 
