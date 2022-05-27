@@ -49,6 +49,9 @@ npx hardhat run --network rinkeby ./scripts/deploy.ts
 npx hardhat verify --network <network> <DEPLOYED_CONTRACT_ADDRESS> "Constructor argument 1"
 ```
 
+### Transaction Hashes
+Contract is deployed on 0xc12dc9161bC03A67BF7cB6f52D928EfA2daDfb08
+
 ### Added plugins
 
 - Gas reporter [hardhat-gas-reporter](https://hardhat.org/plugins/hardhat-gas-reporter.html)
