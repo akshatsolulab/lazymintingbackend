@@ -59,4 +59,4 @@ Contract is deployed on 0xc12dc9161bC03A67BF7cB6f52D928EfA2daDfb08
 
 ## License
 
-MIT
+UNKNOWN
