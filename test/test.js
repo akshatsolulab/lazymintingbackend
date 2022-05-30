@@ -31,7 +31,7 @@ describe("MyNFT", function () {
   // console.log(lazyMinter);
   const voucher = await lazyMinter.createVoucher(
    1,
-   "https://picsum.photos/seed/picsum/200/300"
+   "https://images.pexels.com/photos/479454/pexels-photo-479454.jpeg"
   );
 
   const tokenId = voucher.tokenId;
@@ -58,7 +58,7 @@ describe("MyNFT", function () {
   const lazyMinter = new LazyMinter({ contract, initiater: minter });
   const voucher = await lazyMinter.createVoucher(
    1,
-   "https://picsum.photos/seed/picsum/200/300"
+   "https://images.pexels.com/photos/479454/pexels-photo-479454.jpeg"
   );
 
   const tokenId = voucher.tokenId;
@@ -90,7 +90,7 @@ describe("MyNFT", function () {
   const amount = ethers.constants.WeiPerEther; // charge 1 Eth
   const voucher = await lazyMinter.createVoucher(
    1,
-   "https://picsum.photos/seed/picsum/200/300",
+   "https://images.pexels.com/photos/479454/pexels-photo-479454.jpeg",
    amount
   );
 
@@ -121,7 +121,7 @@ describe("MyNFT", function () {
   const amount = 100; // charge 1 Eth
   const voucher = await lazyMinter.createVoucher(
    1,
-   "https://picsum.photos/seed/picsum/200/300",
+   "https://images.pexels.com/photos/479454/pexels-photo-479454.jpeg",
    amount
   );
 

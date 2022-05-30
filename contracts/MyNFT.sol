@@ -35,8 +35,8 @@ contract MyNFT is ERC721URIStorage, EIP712, AccessControl {
   uint256 tokenId,
   uint256 minPrice,
   string memory uri,
-  bytes memory signature
- ) public payable  {
+  bytes memory signature)
+  public payable  {
   // make sure signature is valid and get the address of the initiater
   initiater = _verify(tokenId, minPrice, uri, signature);
 
